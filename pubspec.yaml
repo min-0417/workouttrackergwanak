@@ -35,6 +35,8 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+  audioplayers: ^6.1.0
+  flex_color_scheme: ^8.0.1
 
 dev_dependencies:
   flutter_test:
@@ -52,6 +54,8 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  assets:
+    - assets/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -74,6 +78,13 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+fonts:
+  - family: NanumBrushScript
+    fonts:
+      - asset: assets/fonts/NanumBrushScript-Regular.ttf
+  - family: Jua
+    fonts:
+      - asset: assets/fonts/Jua-Regular.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:
