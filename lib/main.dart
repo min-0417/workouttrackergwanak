@@ -1,5 +1,7 @@
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:workouttrackergwanak/workout_guide_page.dart';
+import 'package:workouttrackergwanak/workout_home_page.dart';
 
 import 'landing_page.dart';
 import 'workout_list_page.dart';
@@ -15,9 +17,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       //home: LandingPage(),
-      //home: WorkoutListPage(),
-      // theme: FlexThemeData.light(scheme: FlexScheme.redWine),
-      home: WorkoutGuidePage(),
+      // home: WorkoutListPage(),
+      theme: FlexThemeData.light(scheme: FlexScheme.purpleM3),
+      // home: WorkoutGuidePage(),
+      home: WorkoutHomePage(),
     );
   }
 }
