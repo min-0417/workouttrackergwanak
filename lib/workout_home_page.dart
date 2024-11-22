@@ -22,9 +22,18 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
               children: [
                 Expanded(
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment:
+                        CrossAxisAlignment.stretch, // 텍스트를 왼쪽으로 정렬
                     children: [
-                      Text('Just Do It'),
-                      Text('간단하다. 흔들리면 그것은 지방이다.'),
+                      Text(
+                        'Just Do It',
+                        style: TextStyle(fontSize: 33),
+                      ),
+                      Text(
+                        '간단하다. 흔들리면 그것은 지방이다.',
+                        style: TextStyle(fontSize: 23),
+                      ),
                     ],
                   ),
                 ),
@@ -33,6 +42,10 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                   width: 80,
                   height: 80,
                   decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.orange,
+                      width: 4,
+                    ),
                     shape: BoxShape.circle,
                     image: DecorationImage(
                       image: AssetImage('assets/me.jpg'),
@@ -47,6 +60,7 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
               child: Row(
                 children: [
                   Expanded(
+                    flex: 5,
                     child: DashboardCard(
                       icon: Icon(
                         Icons.fitness_center,
@@ -71,6 +85,7 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                     ),
                   ),
                   Expanded(
+                    flex: 6,
                     child: Column(
                       children: [
                         Expanded(
@@ -138,71 +153,102 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
             //c
             Expanded(
               flex: 4,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    SizedBox(
-                        child: DashboardCard(
-                          icon: Icon(
-                            Icons.run_circle_outlined,
-                            size: Theme.of(context)
-                                .textTheme
-                                .headlineSmall
-                                ?.fontSize,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                          title: Text(
-                            '그룹1',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.copyWith(
-                                  fontWeight: FontWeight.bold,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      SizedBox(
+                          child: DashboardCard(
+                            icon: Icon(
+                              Icons.run_circle_outlined,
+                              size: Theme.of(context)
+                                  .textTheme
+                                  .headlineSmall
+                                  ?.fontSize,
+                              color: Theme.of(context).colorScheme.onPrimary,
+                            ),
+                            title: Text(
+                              '그룹1',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                            info: Row(
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        '아침을 여는 5가지 운동 프로그램',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium
+                                            ?.copyWith(
+                                                fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                          ),
-                          info: Text(
-                            '아침을 여는 5가지 운동 프로그램',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall
-                                ?.copyWith(fontWeight: FontWeight.bold),
-                          ),
-                          backgroundColor:
-                              Theme.of(context).colorScheme.surfaceTint,
-                        ),
-                        width: 250),
-                    SizedBox(
-                        child: DashboardCard(
-                          icon: Icon(
-                            Icons.rowing_outlined,
-                            size: Theme.of(context)
-                                .textTheme
-                                .headlineSmall
-                                ?.fontSize,
-                            color: Theme.of(context).colorScheme.onPrimary,
-                          ),
-                          title: Text(
-                            '그룹2',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.copyWith(
-                                  fontWeight: FontWeight.bold,
+                                Expanded(
+                                  child: Image.asset('assets/sample1.png'),
                                 ),
+                              ],
+                            ),
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primaryContainer,
                           ),
-                          info: Text(
-                            '근력을 키우는 7가지 프로그램',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall
-                                ?.copyWith(fontWeight: FontWeight.bold),
+                          width: 200),
+                      SizedBox(
+                          child: DashboardCard(
+                            icon: Icon(
+                              Icons.rowing_outlined,
+                              size: Theme.of(context)
+                                  .textTheme
+                                  .headlineSmall
+                                  ?.fontSize,
+                              color: Theme.of(context).colorScheme.onPrimary,
+                            ),
+                            title: Text(
+                              '그룹2',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                            info: Row(
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        '근력을 키우는 7가지 프로그램',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium
+                                            ?.copyWith(
+                                                fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Image.asset('assets/sample2.png'),
+                                ),
+                              ],
+                            ),
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primaryContainer,
                           ),
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primaryContainer,
-                        ),
-                        width: 250),
-                  ],
+                          width: 200),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -213,7 +259,7 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                 icon: Icon(
                   Icons.list,
                   size: Theme.of(context).textTheme.headlineSmall?.fontSize,
-                  color: Theme.of(context).colorScheme.primary,
+                  color: Theme.of(context).colorScheme.primaryContainer,
                 ),
                 title: Text(
                   '운동 이어서 하기',

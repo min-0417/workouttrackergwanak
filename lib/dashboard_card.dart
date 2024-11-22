@@ -3,14 +3,16 @@ import 'package:flutter/material.dart';
 class DashboardCard extends StatelessWidget {
   Icon icon;
   Text title;
-  Text info;
+  Widget info;
   Color? backgroundColor;
+  // String? imageName;
 
   DashboardCard({
     required this.icon,
     required this.title,
     required this.info,
     this.backgroundColor,
+    // this.imageName,
     super.key,
   });
 
@@ -38,14 +40,30 @@ class DashboardCard extends StatelessWidget {
             ],
           ),
           Expanded(
-            child: info,
-            // Text(
-            //   '12회',
-            //   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-            //         fontWeight: FontWeight.bold,
-            //       ),
-            // ),
+            child: Center(
+              child: info,
+            ),
+            // children: [
+            //   info,
+            //   // 부모로부터 이미지를 받으면,
+            //   // 이미지를 출력
+            //   // NULL이면 빈 컨테이너
+            //   imageName != null
+            //       ? Image.asset('assets/$imageName')
+            //       : Container()
+            //
+            //   // Container(
+            //   //   child: Image.asset('assets/sample1.png'),
+            //   // ),
+            // ],
           ),
+
+          // Text(
+          //   '12회',
+          //   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+          //         fontWeight: FontWeight.bold,
+          //       ),
+          // ),
         ],
       ),
     );
