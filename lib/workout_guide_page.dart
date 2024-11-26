@@ -4,13 +4,15 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:workouttrackergwanak/workout.dart';
 
 class WorkoutGuidePage extends StatefulWidget {
-  WorkoutGuidePage({super.key});
+  final int workoutsIndex;
+  WorkoutGuidePage({super.key, required this.workoutsIndex});
 
   @override
   State<WorkoutGuidePage> createState() => _WorkoutGuidePageState();
 }
 
 class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
+  late int workoutIndex;
   final player = AudioPlayer();
   List<Workout> workouts = [
     Workout(
@@ -69,12 +71,12 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
         kcal: 250),
   ];
   late Workout currentWorkout;
-  int workoutIndex = 0;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    workoutIndex = widget.workoutsIndex;
     currentWorkout = workouts[workoutIndex];
   }
 

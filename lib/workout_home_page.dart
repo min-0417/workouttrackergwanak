@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import 'dashboard_card.dart';
 
@@ -160,51 +161,63 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                   child: Row(
                     children: [
                       SizedBox(
-                          child: DashboardCard(
-                            icon: Icon(
-                              Icons.run_circle_outlined,
-                              size: Theme.of(context)
-                                  .textTheme
-                                  .headlineSmall
-                                  ?.fontSize,
-                              color: Theme.of(context).colorScheme.onPrimary,
-                            ),
-                            title: Text(
-                              '그룹1',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge
-                                  ?.copyWith(
-                                    fontWeight: FontWeight.bold,
+                          child: GestureDetector(
+                            onTap: () {
+                              context.go('/workout_home/workout_list');
+                            },
+                            child: DashboardCard(
+                              customOntap: () {
+                                context.go('/workout_home/workout_list');
+                              },
+                              icon: Icon(
+                                Icons.run_circle_outlined,
+                                size: Theme.of(context)
+                                    .textTheme
+                                    .headlineSmall
+                                    ?.fontSize,
+                                color: Theme.of(context).colorScheme.onPrimary,
+                              ),
+                              title: Text(
+                                '그룹1',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                              info: Row(
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          '아침을 여는 5가지 운동 프로그램',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium
+                                              ?.copyWith(
+                                                  fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                            ),
-                            info: Row(
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        '아침을 여는 5가지 운동 프로그램',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium
-                                            ?.copyWith(
-                                                fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
+                                  Expanded(
+                                    child: Image.asset('assets/sample1.png'),
                                   ),
-                                ),
-                                Expanded(
-                                  child: Image.asset('assets/sample1.png'),
-                                ),
-                              ],
+                                ],
+                              ),
+                              backgroundColor: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer,
                             ),
-                            backgroundColor:
-                                Theme.of(context).colorScheme.primaryContainer,
                           ),
                           width: 200),
                       SizedBox(
                           child: DashboardCard(
+                            customOntap: () {
+                              context.go('/workout_home/workout_list');
+                            },
                             icon: Icon(
                               Icons.rowing_outlined,
                               size: Theme.of(context)
@@ -256,6 +269,9 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
             Expanded(
               flex: 3,
               child: DashboardCard(
+                customOntap: () {
+                  context.go('/workout_home/workout_list');
+                },
                 icon: Icon(
                   Icons.list,
                   size: Theme.of(context).textTheme.headlineSmall?.fontSize,

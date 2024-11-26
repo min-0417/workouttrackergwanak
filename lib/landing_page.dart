@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:workouttrackergwanak/my_router.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
@@ -28,7 +30,7 @@ class LandingPage extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Text(
                   '남들이 그만둘 때, 난 계속한다.',
-                  style: TextStyle(fontSize: 23, fontFamily: 'NanumBrushScrit'),
+                  style: TextStyle(fontSize: 16, fontFamily: 'NanumBrushScrit'),
                 ),
               ),
               // Container(
@@ -54,7 +56,9 @@ class LandingPage extends StatelessWidget {
               //   ),
               // ),
               OutlinedButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.go('/workout_home');
+                },
                 child: Text('START'),
                 style: OutlinedButton.styleFrom(foregroundColor: Colors.white),
               ),

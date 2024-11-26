@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:workouttrackergwanak/workout.dart';
 
 class WorkoutListPage extends StatelessWidget {
@@ -62,7 +63,7 @@ class WorkoutListPage extends StatelessWidget {
         kcal: 250),
   ];
 
-  List<Widget> getWorkoutList() {
+  List<Widget> getWorkoutList(BuildContext context) {
     List<Widget> workoutListRow = [];
     for (var i = 0; i < workouts.length; i++) {
       Workout workout = workouts[i];
@@ -74,7 +75,7 @@ class WorkoutListPage extends StatelessWidget {
         GestureDetector(
           // workoutListRow 변수는 Row type만 저장. type을 GestureDetector로 변경 >> Widget과 같은 혈통이라 GestureDetector이 아닌 Widget으로 해도 괜찮.
           onTap: () {
-            print('click $i');
+            context.go('/workout_home/workout_list/workout_guide/${i}');
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -114,7 +115,7 @@ class WorkoutListPage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: getWorkoutList(),
+          children: getWorkoutList(context),
         ),
       ),
     );
