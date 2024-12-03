@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:workouttrackergwanak/workout_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dashboard_card.dart';
 
 class WorkoutHomePage extends StatefulWidget {
@@ -12,6 +13,28 @@ class WorkoutHomePage extends StatefulWidget {
 }
 
 class _WorkoutHomePageState extends State<WorkoutHomePage> {
+  int i = 0;
+  late Future<int> monthlyCountFuture;
+  late Future<int> workoutMinuteFuture;
+  late Future<int> workoutKcalFuture;
+  @override
+  void initState() {
+    // TODO: implement didUpdateWidget
+    super.initState();
+    monthlyCountFuture = WorkoutManager.getMonthlyWorkoutCount();
+    workoutMinuteFuture = WorkoutManager.getTodayWorkoutMinutes();
+    workoutKcalFuture = WorkoutManager.getTodayWorkoutCalories();
+  }
+
+  @override
+  void didUpdateWidget(covariant WorkoutHomePage oldWidget) {
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+    monthlyCountFuture = WorkoutManager.getMonthlyWorkoutCount();
+    workoutMinuteFuture = WorkoutManager.getTodayWorkoutMinutes();
+    workoutKcalFuture = WorkoutManager.getTodayWorkoutCalories();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,13 +99,25 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                             .titleLarge
                             ?.copyWith(fontWeight: FontWeight.bold),
                       ),
-                      info: Text(
-                        '12회',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall
-                            ?.copyWith(fontWeight: FontWeight.bold),
-                      ),
+                      info: FutureBuilder(
+                          future: monthlyCountFuture, // 함수가 아닌 future타입으로 넘겨줘야함
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return CircularProgressIndicator();
+                            }
+                            if (snapshot.hasError) {
+                              return Text('Error: ${snapshot.error}');
+                            }
+                            final monthlyWorkoutCount = snapshot.data ?? 0;
+                            return Text(
+                              '$monthlyWorkoutCount회',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineSmall
+                                  ?.copyWith(fontWeight: FontWeight.bold),
+                            );
+                          }),
                     ),
                   ),
                   Expanded(
@@ -108,13 +143,26 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                                     fontWeight: FontWeight.bold,
                                   ),
                             ),
-                            info: Text(
-                              '10분',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineSmall
-                                  ?.copyWith(fontWeight: FontWeight.bold),
-                            ),
+                            info: FutureBuilder<int>(
+                                future: workoutMinuteFuture,
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return CircularProgressIndicator();
+                                  } else if (snapshot.hasError) {
+                                    return Text('Error: ${snapshot.error}');
+                                  } else {
+                                    final todayMinutes = snapshot.data ?? 0;
+                                    return Text(
+                                      '${todayMinutes}분',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall
+                                          ?.copyWith(
+                                              fontWeight: FontWeight.bold),
+                                    );
+                                  }
+                                }),
                           ),
                         ),
                         Expanded(
@@ -136,13 +184,26 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                                     fontWeight: FontWeight.bold,
                                   ),
                             ),
-                            info: Text(
-                              '100Kcal',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineSmall
-                                  ?.copyWith(fontWeight: FontWeight.bold),
-                            ),
+                            info: FutureBuilder(
+                                future: workoutKcalFuture,
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return CircularProgressIndicator();
+                                  } else if (snapshot.hasError) {
+                                    return Text('Error: ${snapshot.error}');
+                                  } else {
+                                    final workoutKcal = snapshot.data ?? 0;
+                                    return Text(
+                                      '${workoutKcal}Kcal',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall
+                                          ?.copyWith(
+                                              fontWeight: FontWeight.bold),
+                                    );
+                                  }
+                                }),
                           ),
                         ),
                       ],
@@ -167,7 +228,7 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                             },
                             child: DashboardCard(
                               customOntap: () {
-                                context.go('/workout_home/workout_list');
+                                context.go('/workout_home/workout_list/0');
                               },
                               icon: Icon(
                                 Icons.run_circle_outlined,
@@ -191,13 +252,14 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                                   Expanded(
                                     child: Column(
                                       children: [
-                                        Text(
-                                          '아침을 여는 5가지 운동 프로그램',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleMedium
-                                              ?.copyWith(
-                                                  fontWeight: FontWeight.bold),
+                                        Expanded(
+                                          child: Text(
+                                            WorkoutManager.workoutGroups[0]
+                                                .groupDescription,
+                                            style: TextStyle(
+                                                fontSize: 23,
+                                                color: Colors.white),
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -216,7 +278,7 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                       SizedBox(
                           child: DashboardCard(
                             customOntap: () {
-                              context.go('/workout_home/workout_list');
+                              context.go('/workout_home/workout_list/1');
                             },
                             icon: Icon(
                               Icons.rowing_outlined,
@@ -240,13 +302,14 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                                 Expanded(
                                   child: Column(
                                     children: [
-                                      Text(
-                                        '근력을 키우는 7가지 프로그램',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium
-                                            ?.copyWith(
-                                                fontWeight: FontWeight.bold),
+                                      Flexible(
+                                        child: Text(
+                                          WorkoutManager.workoutGroups[1]
+                                              .groupDescription,
+                                          style: TextStyle(
+                                              fontSize: 23,
+                                              color: Colors.white),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -265,12 +328,14 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                 ),
               ),
             ),
-            //d
+            //d /workout_home/workout_list/currentWorkoutGroupIndex
             Expanded(
               flex: 3,
               child: DashboardCard(
                 customOntap: () {
-                  context.go('/workout_home/workout_list');
+                  if (WorkoutManager.currentWorkoutGroupIndex == null) return;
+                  context.go(
+                      '/workout_home/workout_list/${WorkoutManager.currentWorkoutGroupIndex}');
                 },
                 icon: Icon(
                   Icons.list,
