@@ -22,8 +22,8 @@ final router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => LandingPage(),
-      // builder: (context, state) => AnimationPracticeWidget(),
+      // builder: (context, state) => LandingPage(),
+      builder: (context, state) => AnimationPracticeWidget(),
     ),
     StatefulShellRoute.indexedStack(
       parentNavigatorKey: _rootNavigatorKey,

@@ -10,40 +10,80 @@ class AnimationPracticeWidget extends StatefulWidget {
 
 class _AnimationPracticeWidgetState extends State<AnimationPracticeWidget>
     with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _animation;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _controller = AnimationController(
-      duration: Duration(seconds: 2),
-      vsync: this,
-    );
-    final Animation<double> _curvedAnimation = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeInOut,
-    );
-
-    _animation =
-        Tween<double>(begin: 50.0, end: 200.0).animate(_curvedAnimation);
-    _animation.addListener(() {
-      setState(() {});
-    });
-    _controller.forward();
-  }
+  Alignment _alignment = Alignment.topLeft;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
-          width: _animation.value,
-          height: _animation.value,
-          color: Colors.blue,
+        child: AnimatedAlign(
+          alignment: _alignment,
+          duration: Duration(seconds: 2),
+          child: FlutterLogo(size: 115),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            _alignment = _alignment == Alignment.topLeft
+                ? Alignment.bottomRight
+                : Alignment(0.0, 1.0);
+          });
+        },
+        child: Icon(Icons.play_arrow),
       ),
     );
   }
 }
+
+// class _AnimationPracticeWidgetState extends State<AnimationPracticeWidget>
+//     with SingleTickerProviderStateMixin {
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Center(
+//
+//       ),
+//       floatingActionButton: FloatingActionButton(
+//         onPressed: () {
+//
+//         },
+//         child: Icon(Icons.play_arrow),
+//       ),
+//     );
+//   }
+// }
+//
+
+// class _AnimationPracticeWidgetState extends State<AnimationPracticeWidget>
+//     with SingleTickerProviderStateMixin {
+//   double _width = 115;
+//   double _height = 115;
+//   Color _color = Colors.blue;
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Center(
+//         child: AnimatedContainer(
+//           width: _width,
+//           height: _height,
+//           color: _color,
+//           duration: Duration(seconds: 2),
+//           child: FlutterLogo(size: 115),
+//         ),
+//       ),
+//       floatingActionButton: FloatingActionButton(
+//         onPressed: () {
+//           setState(() {
+//             _width = _width == 115 ? 215 : 115;
+//             _height = _height == 115 ? 215 : 115;
+//             _color = _color == Colors.blue ? Colors.red : Colors.blue;
+//             215;
+//           });
+//         },
+//         child: Icon(Icons.play_arrow),
+//       ),
+//     );
+//   }
+// }

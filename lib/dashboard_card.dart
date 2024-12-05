@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DashboardCard extends StatelessWidget {
-  Icon icon;
+  Widget icon; // 아이콘은 위젯의 혈통임.
   Text title;
   Widget info;
   Function()? customOntap;

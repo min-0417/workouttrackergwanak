@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:workouttrackergwanak/workout_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'animated_icon_widget.dart';
 import 'dashboard_card.dart';
 
 class WorkoutHomePage extends StatefulWidget {
@@ -86,8 +87,14 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                   Expanded(
                     flex: 5,
                     child: DashboardCard(
-                      icon: Icon(
-                        Icons.fitness_center,
+                      // icon: Icon(
+                      //   Icons.fitness_center,
+                      //   size:
+                      //       Theme.of(context).textTheme.headlineSmall?.fontSize,
+                      //   color: Theme.of(context).colorScheme.primary,
+                      // ),
+                      icon: AnimatedIconWidget(
+                        icon: Icons.fitness_center,
                         size:
                             Theme.of(context).textTheme.headlineSmall?.fontSize,
                         color: Theme.of(context).colorScheme.primary,
@@ -126,8 +133,16 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                       children: [
                         Expanded(
                           child: DashboardCard(
-                            icon: Icon(
-                              Icons.update,
+                            // icon: Icon(
+                            //   Icons.update,
+                            //   size: Theme.of(context)
+                            //       .textTheme
+                            //       .headlineSmall
+                            //       ?.fontSize,
+                            //   color: Theme.of(context).colorScheme.primary,
+                            // ),
+                            icon: AnimatedIconWidget(
+                              icon: Icons.fitness_center,
                               size: Theme.of(context)
                                   .textTheme
                                   .headlineSmall
@@ -167,14 +182,22 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                         ),
                         Expanded(
                           child: DashboardCard(
-                            icon: Icon(
-                              Icons.fitness_center,
+                            icon: AnimatedIconWidget(
+                              icon: Icons.fitness_center,
                               size: Theme.of(context)
                                   .textTheme
                                   .headlineSmall
                                   ?.fontSize,
                               color: Theme.of(context).colorScheme.primary,
                             ),
+                            // icon: Icon(
+                            //   Icons.fitness_center,
+                            //   size: Theme.of(context)
+                            //       .textTheme
+                            //       .headlineSmall
+                            //       ?.fontSize,
+                            //   color: Theme.of(context).colorScheme.primary,
+                            // ),
                             title: Text(
                               '소모칼로리',
                               style: Theme.of(context)
