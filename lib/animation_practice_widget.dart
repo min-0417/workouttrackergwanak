@@ -10,24 +10,32 @@ class AnimationPracticeWidget extends StatefulWidget {
 
 class _AnimationPracticeWidgetState extends State<AnimationPracticeWidget>
     with SingleTickerProviderStateMixin {
-  Alignment _alignment = Alignment.topLeft;
-
+  double _begin = 0;
+  double _end = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: AnimatedAlign(
-          alignment: _alignment,
-          duration: Duration(seconds: 2),
-          child: FlutterLogo(size: 115),
+        child: TweenAnimationBuilder(
+          duration: Duration(seconds: 3),
+          tween: Tween<double>(begin: _begin, end: _end),
+          builder: (context, value, child) {
+            return Opacity(
+              child: child,
+              opacity: value,
+            );
+          },
+          child: Text(
+            'Hello, World!',
+            style: TextStyle(fontSize: 24),
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
-            _alignment = _alignment == Alignment.topLeft
-                ? Alignment.bottomRight
-                : Alignment(0.0, 1.0);
+            _begin = _begin == 0 ? 1 : 0;
+            _end = _end == 0 ? 1 : 0;
           });
         },
         child: Icon(Icons.play_arrow),
@@ -35,6 +43,61 @@ class _AnimationPracticeWidgetState extends State<AnimationPracticeWidget>
     );
   }
 }
+
+// class _AnimationPracticeWidgetState extends State<AnimationPracticeWidget>
+//     with SingleTickerProviderStateMixin {
+//   @override
+//   Widget build(BuildContext context) {
+//     TextStyle _textStyle = TextStyle(fontSize: 24, color: Colors.black);
+//     return Scaffold(
+//       body: Center(
+//         child: AnimatedDefaultTextStyle(
+//           style: _textStyle,
+//           duration: Duration(seconds: 2),
+//           child: Text('Hello World!!!'),
+//         ),
+//       ),
+//       floatingActionButton: FloatingActionButton(
+//         onPressed: () {
+//           setState(() {
+//             _textStyle =
+//                 _textStyle == TextStyle(fontSize: 24, color: Colors.black)?TextStyle(fontSize: 48, color: Colors.blue)
+//                     : TextStyle(fontSize: 24, color: Colors.black);
+//           });
+//         },
+//         child: Icon(Icons.play_arrow),
+//       ),
+//     );
+//   }
+// }
+
+// class _AnimationPracticeWidgetState extends State<AnimationPracticeWidget>
+//     with SingleTickerProviderStateMixin {
+//   Alignment _alignment = Alignment.topLeft;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Center(
+//         child: AnimatedAlign(
+//           alignment: _alignment,
+//           duration: Duration(seconds: 2),
+//           child: FlutterLogo(size: 115),
+//         ),
+//       ),
+//       floatingActionButton: FloatingActionButton(
+//         onPressed: () {
+//           setState(() {
+//             _alignment = _alignment == Alignment.topLeft
+//                 ? Alignment.bottomRight
+//                 : Alignment(0.0, 1.0);
+//           });
+//         },
+//         child: Icon(Icons.play_arrow),
+//       ),
+//     );
+//   }
+// }
 
 // class _AnimationPracticeWidgetState extends State<AnimationPracticeWidget>
 //     with SingleTickerProviderStateMixin {
